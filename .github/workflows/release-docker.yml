@@ -3,7 +3,7 @@ name: release-docker
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - 'v*.*.*'  # This still triggers for version tags (optional)
   pull_request:
     branches:
       - master
@@ -28,11 +28,9 @@ jobs:
         id: docker_meta
         uses: docker/metadata-action@v5
         with:
-          images: |
-            ghcr.io/${{ env.REPOSITORY }}
+          images: ghcr.io/${{ env.REPOSITORY }}
           tags: |
-            type=semver,pattern={{version}},prefix=v
-            type=ref,event=pr
+            latest
           flavor: |
             latest=auto
 
